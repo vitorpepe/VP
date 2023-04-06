@@ -1,7 +1,7 @@
 /*
  Sistemas Operacionais
  Prof. Eduardo Ferreira
- Projeto 1 - Jantar dos Filosofos
+Multiplicação Matriz-Vetor
  Nome: Vitor Pepe
  TIA: 31852963
 */
