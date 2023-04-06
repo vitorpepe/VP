@@ -59,8 +59,7 @@ int main() {
     printf("O Vetor Resultante é:\n");
     for (int i = 0; i < m; i++) {
         printf("%lf\n", y[i]);
-    }
-    
+    } 
     // Liberando memória
     for (int i = 0; i < m; i++) {
         free(A[i]);
@@ -69,11 +68,8 @@ int main() {
     free(x);
     free(y);
     free(thread_handles);
-    
     return 0;
 }
-
-
 void *Pth_mat_vect(void *rank) {
     long my_rank = (long) rank;
     int i, j;
@@ -86,7 +82,6 @@ void *Pth_mat_vect(void *rank) {
         for (j = 0; j < n; j++) {
             y[i] += A[i][j] * x[j];
         }
-    }
-    
+    }    
     return NULL;
 }
