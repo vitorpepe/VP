@@ -7,14 +7,14 @@ struct reg {
     celula *prox;
 };
 
-void insere(celula **inicio, int valor) {
+void inserir(celula **inicio, int valor) {
     celula *nova = malloc(sizeof(celula));
     nova->conteudo = valor;
     nova->prox = *inicio;
     *inicio = nova;
 }
 
-void imprime(celula *inicio) {
+void imprimir(celula *inicio) {
     celula *p = inicio;
     while (p != NULL) {
         printf("%d ", p->conteudo);
@@ -23,16 +23,16 @@ void imprime(celula *inicio) {
     printf("\n");
 }
 
-int tamanho_celula() {
+size_t tamanho_celula() {
     celula *p = malloc(sizeof(celula));
     celula *q = malloc(sizeof(celula));
-    int tamanho = (int) (q - p);
+    size_t tamanho = (char*)q - (char*)p;
     free(p);
     free(q);
     return tamanho;
 }
 
-void remove_todos(celula **inicio) {
+void excluir_todos(celula **inicio) {
     celula *p = *inicio;
     while (p != NULL) {
         celula *q = p->prox;
@@ -42,7 +42,7 @@ void remove_todos(celula **inicio) {
     *inicio = NULL;
 }
 
-void remove_valor(celula **inicio, int valor) {
+int remove_valor(celula **inicio, int valor) {
     celula *p = *inicio;
     celula *ant = NULL;
     while (p != NULL) {
@@ -53,16 +53,17 @@ void remove_valor(celula **inicio, int valor) {
                 ant->prox = p->prox;
             }
             free(p);
-            return;
+            return 1;
         }
         ant = p;
         p = p->prox;
     }
+    return 0;
 }
 
-int maximo_elementos() {
-    int tamanho_cel = tamanho_celula();
-    int tamanho_memoria = 1024 * 1024 * 1024; // 1 GB em bytes
+size_t maximo_elementos() {
+    size_t tamanho_cel = tamanho_celula();
+    size_t tamanho_memoria = 1024 * 1024 * 1024; // 1 GB em bytes
     return tamanho_memoria / tamanho_cel;
 }
 
@@ -76,10 +77,10 @@ int espaco_utilizado(celula *inicio) {
     return count;
 }
 
-int capacidade_disponivel() {
-    int max_elem = maximo_elementos();
+size_t capacidade_disponivel() {
+    size_t max_elem = maximo_elementos();
     celula *p = malloc(sizeof(celula));
-    int count = 0;
+    size_t count = 0;
     while (count < max_elem && p != NULL) {
         p = p->prox;
         count++;
@@ -97,9 +98,9 @@ int main() {
         printf("1 - Inserir valor\n");
         printf("2 - Excluir todos os valores\n");
         printf("3 - Imprimir valores\n");
-        printf("4 - Remover valor\n");
-        printf("5 - Espaço utilizado na memória\n");
-        printf("6 - Capacidade disponível\n");
+        printf("4 - Espaco utilizado na memoria\n");
+        printf("5 - Remover valor\n");
+        printf("6 - Capacidade disponivel\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -108,64 +109,40 @@ int main() {
             case 1:
                 printf("Digite o valor: ");
                 scanf("%d", &valor);
-                insere(&inicio, valor);
-                printf("Valor inserido com sucesso!\n");
+                inserir(&inicio, valor);
                 break;
-                
-            case 2:
-                remove_todos(&inicio);
-                printf("Todos os valores foram excluidos!\n");
-                break;
-                
-            case 3:
-                imprime(inicio);
-                break;
-            case 4:
-                printf("Espaco utilizado na memoria: %d bytes\n", maximo_elementos() * tamanho_celula());
-                printf("Capacidade disponivel: %d\n", maximo_elementos() - espaco_utilizado(inicio));
-                break;
-        
-            case 5:
-                printf("Digite o valor a ser removido: ");
-                scanf("%d", &valor);
-                celula *p = inicio;
-                celula *anterior = NULL;
-                while (p != NULL) {
-                  if (p->conteudo == valor) {
-                    if (anterior == NULL) {
-                        inicio = p->prox;
-                    } else {
-                        anterior->prox = p->prox;
-                    }
-                    free(p);
-                    printf("Valor removido com sucesso!\n");
-                    break;
-                }
-                anterior = p;
-                p = p->prox;
-            }
-            if (p == NULL) {
-                printf("Valor nao encontrado!\n");
-            }
-            break;
-        
-        case 6:
-            printf("Capacidade disponivel: %d\n", capacidade_disponivel());
-            break;
-        
-        case 0:
-            printf("Saindo...\n");
-            break;
-        
-        default:
-            printf("Opcao invalida!\n");
-            break;
-    }
-    
-} while (opcao != 0);
 
-// Remove todos os elementos restantes na lista
-remove_todos(&inicio);
+            case 2:
+                excluir_todos(&inicio);
+                printf("Todos os valores foram excluidos.\n");
+                break;
+      
+            case 3:
+                imprimir(inicio);
+                break;
+    
+            case 4:
+                printf("O espaco utilizado na memoria e de %d bytes.\n", espaco_utilizado(inicio) * sizeof(celula));
+                break;
+    
+            case 5:
+                printf("Digite o valor que deseja remover: ");
+                scanf("%d", &valor);
+                remove_valor(&inicio, valor);
+                break;
+    
+            case 6:
+                printf("A capacidade disponivel e de %zu.\n", capacidade_disponivel());
+                break;
+    
+            case 0:
+                excluir_todos(&inicio);
+                break;
+    
+            default:
+                printf("Opcao invalida.\n");
+    }
+} while (opcao != 0);
 
 return 0;
 }
