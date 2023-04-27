@@ -1,7 +1,7 @@
 /*
  Sistemas Operacionais
  Prof. Eduardo Ferreira
- Projeto 1 - Jantar dos Filosofos
+ Memória 1
  Nome: Vitor Pepe
  TIA: 31852963
 */
