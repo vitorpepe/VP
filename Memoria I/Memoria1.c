@@ -6,14 +6,14 @@ struct reg {
     int conteudo;
     celula *prox;
 };
-
+// Função que insere um valor novo no início da lista encadeada
 void inserir(celula **inicio, int valor) {
     celula *nova = malloc(sizeof(celula));
     nova->conteudo = valor;
     nova->prox = *inicio;
     *inicio = nova;
 }
-
+// Função que imprime os valores da lista
 void imprimir(celula *inicio) {
     celula *p = inicio;
     while (p != NULL) {
@@ -22,7 +22,7 @@ void imprimir(celula *inicio) {
     }
     printf("\n");
 }
-
+// Função que retorna o tamanho de uma célula em bytes
 size_t tamanho_celula() {
     celula *p = malloc(sizeof(celula));
     celula *q = malloc(sizeof(celula));
@@ -31,7 +31,7 @@ size_t tamanho_celula() {
     free(q);
     return tamanho;
 }
-
+// Função que remove todos os valores da lista encadeada
 void excluir_todos(celula **inicio) {
     celula *p = *inicio;
     while (p != NULL) {
@@ -41,7 +41,7 @@ void excluir_todos(celula **inicio) {
     }
     *inicio = NULL;
 }
-
+// Função que remove um valor específico da lista
 int remove_valor(celula **inicio, int valor) {
     celula *p = *inicio;
     celula *ant = NULL;
@@ -60,7 +60,7 @@ int remove_valor(celula **inicio, int valor) {
     }
     return 0;
 }
-
+// Função que calcula o espaço utilizado pela lista
 int espaco_utilizado(celula *inicio) {
     int count = 0;
     celula *p = inicio;
@@ -73,7 +73,8 @@ int espaco_utilizado(celula *inicio) {
 
 int main() {
     celula *inicio = NULL;
-    
+  
+// Declaração das variáveis que serão utilizadas no menu  
     int opcao, valor;
     do {
         printf("\nMENU:\n");
@@ -85,7 +86,8 @@ int main() {
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
-        
+      
+// Execução sa opção escolhida pelo usuário       
         switch (opcao) {
             case 1:
                 printf("Digite o valor: ");
