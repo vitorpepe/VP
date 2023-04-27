@@ -15,3 +15,12 @@ O programa começa com a definição da estrutura **celula**, que contém um val
 * **espaco_utilizado** percorre a lista e conta o número de células para calcular o espaço utilizado na memória.
 
 O programa principal começa com a declaração da variável inicio, que será o ponteiro para o início da lista. Em seguida, é exibido um menu com as opções disponíveis para o usuário. O programa entra em um loop que executa a opção escolhida pelo usuário até que ele escolha a opção de saída (0). O loop chama as funções correspondentes para executar cada opção escolhida.
+
+* **Inserindo Valores** 
+
+![image](https://user-images.githubusercontent.com/34254106/234985150-00464175-acbb-4080-bb6f-a39f80581aac.png)
+![image](https://user-images.githubusercontent.com/34254106/234985621-10d6c3d6-c135-499e-a22e-1d71d27f91cd.png)
+
+* **Espaço utilizado**
+
+
