@@ -1,3 +1,10 @@
+/*
+ Sistemas Operacionais
+ Prof. Eduardo Ferreira
+ Projeto 1 - Jantar dos Filosofos
+ Nome: Vitor Pepe
+ TIA: 31852963
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
