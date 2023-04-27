@@ -61,12 +61,6 @@ int remove_valor(celula **inicio, int valor) {
     return 0;
 }
 
-size_t maximo_elementos() {
-    size_t tamanho_cel = tamanho_celula();
-    size_t tamanho_memoria = 1024 * 1024 * 1024; // 1 GB em bytes
-    return tamanho_memoria / tamanho_cel;
-}
-
 int espaco_utilizado(celula *inicio) {
     int count = 0;
     celula *p = inicio;
@@ -77,18 +71,6 @@ int espaco_utilizado(celula *inicio) {
     return count;
 }
 
-size_t capacidade_disponivel() {
-    size_t max_elem = maximo_elementos();
-    celula *p = malloc(sizeof(celula));
-    size_t count = 0;
-    while (count < max_elem && p != NULL) {
-        p = p->prox;
-        count++;
-    }
-    free(p);
-    return max_elem - count;
-}
-
 int main() {
     celula *inicio = NULL;
     
@@ -96,11 +78,10 @@ int main() {
     do {
         printf("\nMENU:\n");
         printf("1 - Inserir valor\n");
-        printf("2 - Excluir todos os valores\n");
-        printf("3 - Imprimir valores\n");
-        printf("4 - Espaco utilizado na memoria\n");
-        printf("5 - Remover valor\n");
-        printf("6 - Capacidade disponivel\n");
+        printf("2 - Imprimir valores\n");
+        printf("3 - Remover valor\n");
+        printf("4 - Remover todos os valores\n");
+        printf("5 - Espaço utilizado na memoria\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -113,34 +94,30 @@ int main() {
                 break;
 
             case 2:
-                excluir_todos(&inicio);
-                printf("Todos os valores foram excluidos.\n");
+                imprimir(inicio);
                 break;
       
             case 3:
-                imprimir(inicio);
-                break;
-    
-            case 4:
-                printf("O espaco utilizado na memoria e de %d bytes.\n", espaco_utilizado(inicio) * sizeof(celula));
-                break;
-    
-            case 5:
                 printf("Digite o valor que deseja remover: ");
                 scanf("%d", &valor);
                 remove_valor(&inicio, valor);
                 break;
     
-            case 6:
-                printf("A capacidade disponivel e de %zu.\n", capacidade_disponivel());
+            case 4:
+                excluir_todos(&inicio);
+                printf("Todos os valores foram excluidos.\n");
                 break;
     
+            case 5:
+                printf("O espaco utilizado na memoria é de %d bytes.\n", espaco_utilizado(inicio) * sizeof(celula));
+                break;
+          
             case 0:
                 excluir_todos(&inicio);
                 break;
     
             default:
-                printf("Opcao invalida.\n");
+                printf("Opcão inválida.\n");
     }
 } while (opcao != 0);
 
